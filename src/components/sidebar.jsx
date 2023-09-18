@@ -39,7 +39,7 @@ function Sidebar() {
                 </div>
                 <div className="ml-3">
                     <h3 className="uppercase font-light text-cool_gray">step 2</h3>
-                    <h2 className="uppercase text-white font-bold">select a plan</h2>
+                    <h2 className="uppercase text-white font-bold">select plan</h2>
                 </div>
             </div>
             {/* step 3*/}

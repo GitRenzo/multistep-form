@@ -1,6 +1,5 @@
 "use client";
 import { createContext, useState } from "react"
-import { usePathname } from "next/navigation"
 import { useRouter } from "next/navigation";
 // helpers
 import { ValidateString, ValidateEmail, ValidatePhoneNumber } from "../../helpers/validateFields"
@@ -18,7 +17,16 @@ function FormProvider({ children }) {
     const [phoneNumber, setPhoneNumber] = useState("")
     const [isFieldPhoneNumberValid, setIsFieldPhoneNumberValid] = useState(true)
 
-    const [subscription, setSubscription] = useState(false)
+    const [toggleState, setToggleState] = useState(false)
+    const [subscriptionValue, setSubscriptionValue] = useState("yearly")
+
+    const [arcade, setArcade] = useState(false)
+    const [advanced, setAdvanced] = useState(false)
+    const [pro, setPro] = useState(false)
+
+    const [onlineServices, setOnlineServices] = useState(false)
+    const [largerStorage, setLargerStorage] = useState(false)
+    const [custProfile, setCustProfile] = useState(false)
 
     const handleStep = (path) => {
         router.push(path)
@@ -40,8 +48,43 @@ function FormProvider({ children }) {
         setIsFieldPhoneNumberValid(ValidatePhoneNumber(inputValue, /^\+?\d+$/))
     }
 
-    const subscriptionHandler = () => {
-        setSubscription(!subscription)
+    const toggleStateHandler = () => {
+        setToggleState(!toggleState)
+        if (toggleState) {
+            setSubscriptionValue("yearly")
+        }
+        else {
+            setSubscriptionValue("monthly")
+        }
+    }
+
+    const arcadeHandler = () => {
+        setArcade(!arcade)
+        setAdvanced(false)
+        setPro(false)
+    }
+    const advancedHandler = () => {
+        setArcade(false)
+        setAdvanced(!advanced)
+        setPro(false)
+    }
+    const proHandler = () => {
+        setArcade(false)
+        setAdvanced(false)
+        setPro(!pro)
+    }
+
+    const handleOnlineServicesCheckbox = () => {
+        setOnlineServices(!onlineServices)
+
+    }
+
+    const handleLargerStorageCheckbox = () => {
+        setLargerStorage(!largerStorage)
+    }
+
+    const handleCustProfileCheckbox = () => {
+        setCustProfile(!custProfile)
     }
 
 
@@ -51,14 +94,27 @@ function FormProvider({ children }) {
             handleInputChange,
             handleInputEmailChange,
             handleInputPhoneNumberChange,
-            subscriptionHandler,
+            toggleStateHandler,
+            arcadeHandler,
+            advancedHandler,
+            proHandler,
+            handleOnlineServicesCheckbox,
+            handleLargerStorageCheckbox,
+            handleCustProfileCheckbox,
             name,
             isFieldNameValid,
             email,
             isFieldEmailValid,
             phoneNumber,
             isFieldPhoneNumberValid,
-            subscription,
+            toggleState,
+            subscriptionValue,
+            arcade,
+            advanced,
+            pro,
+            onlineServices,
+            largerStorage,
+            custProfile,
         }}>
             {children}
         </FormContext.Provider>
