@@ -6,7 +6,9 @@ function StepTwo() {
     const {
         handleStep, toggleState, toggleStateHandler,
         arcade, arcadeHandler, advanced, advancedHandler, pro, proHandler,
+        cart,
     } = useFormTool()
+
     return (
         <div className="container">
             <div>

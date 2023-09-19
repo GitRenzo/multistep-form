@@ -15,7 +15,7 @@ function StepThree() {
                 <div className="flex flex-row justify-between items-center plan-box ">
                     <div className="flex flex-row">
                         <input className="w-5 mr-5" type="checkbox"
-                            onClick={handleOnlineServicesCheckbox}
+                            onChange={handleOnlineServicesCheckbox}
                             checked={onlineServices}
                         />
                         <div>
@@ -29,7 +29,7 @@ function StepThree() {
                 <div className="flex flex-row justify-between items-center plan-box">
                     <div className="flex flex-row">
                         <input className="w-5 mr-5" type="checkbox"
-                            onClick={handleLargerStorageCheckbox}
+                            onChange={handleLargerStorageCheckbox}
                             checked={largerStorage}
                         />
                         <div>
@@ -43,7 +43,7 @@ function StepThree() {
                 <div className="flex flex-row justify-between items-center plan-box">
                     <div className="flex flex-row">
                         <input className="w-5 mr-5" type="checkbox"
-                            onClick={handleCustProfileCheckbox}
+                            onChange={handleCustProfileCheckbox}
                             checked={custProfile}
                         />
                         <div>

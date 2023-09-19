@@ -1,5 +1,5 @@
 "use client";
-import { createContext, useState } from "react"
+import { createContext, useState, useEffect } from "react"
 import { useRouter } from "next/navigation";
 // helpers
 import { ValidateString, ValidateEmail, ValidatePhoneNumber } from "../../helpers/validateFields"
@@ -23,10 +23,28 @@ function FormProvider({ children }) {
     const [arcade, setArcade] = useState(false)
     const [advanced, setAdvanced] = useState(false)
     const [pro, setPro] = useState(false)
+    const [plan, setPlan] = useState({})
 
     const [onlineServices, setOnlineServices] = useState(false)
     const [largerStorage, setLargerStorage] = useState(false)
     const [custProfile, setCustProfile] = useState(false)
+
+    const [cart, setCart] = useState({})
+
+    useEffect(() => {
+        if (arcade) {
+            setCart({ planName: "Arcade", planPrice: "9" })
+        }
+        else if (advanced) {
+            setCart({ planName: "Advanced", planPrice: "12" })
+        }
+        else if (pro) {
+            setCart({ planName: "Pro", planPrice: "9" })
+        }
+        else {
+            setCart({ PlanName: "", planPrice: "0" })
+        }
+    }, [arcade, advanced, pro])
 
     const handleStep = (path) => {
         router.push(path)
@@ -63,6 +81,7 @@ function FormProvider({ children }) {
         setAdvanced(false)
         setPro(false)
     }
+
     const advancedHandler = () => {
         setArcade(false)
         setAdvanced(!advanced)
