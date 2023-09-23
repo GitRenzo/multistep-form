@@ -5,7 +5,7 @@ function StepTwo() {
 
     const {
         handleStep, toggleState, toggleStateHandler,
-        arcade, arcadeHandler, advanced, advancedHandler, pro, proHandler,
+        planChecked, planHandler,
         cart,
     } = useFormTool()
 
@@ -18,8 +18,8 @@ function StepTwo() {
                 <div className="mt-10">
                     <div className="grid grid-cols-3 gap-2 mb-10">
                         <div
-                            onClick={arcadeHandler}
-                            className={`${arcade ? "plan-selected" : "plan-box"}`}>
+                            onClick={() => planHandler(0, "Arcade", 9)}
+                            className={`${planChecked[0] ? "plan-selected" : "plan-box"}`}>
                             <Image
                                 className="mb-10"
                                 src={"/assets/images/icon-arcade.svg"} alt="Arcade image" height={30} width={30} />
@@ -27,8 +27,8 @@ function StepTwo() {
                             <p className="text-cool_gray">$9/Mo</p>
                         </div>
                         <div
-                            onClick={advancedHandler}
-                            className={`${advanced ? "plan-selected" : "plan-box"}`}>
+                            onClick={() => planHandler(1, "Advanced", 12)}
+                            className={`${planChecked[1] ? "plan-selected" : "plan-box"}`}>
                             <Image
                                 className="mb-10"
                                 src={"/assets/images/icon-advanced.svg"} alt="Arcade image" height={30} width={30} />
@@ -36,8 +36,8 @@ function StepTwo() {
                             <p className="text-cool_gray">$12/Mo</p>
                         </div>
                         <div
-                            onClick={proHandler}
-                            className={`${pro ? "plan-selected" : "plan-box"}`}>
+                            onClick={() => planHandler(2, "Pro", 15)}
+                            className={`${planChecked[2] ? "plan-selected" : "plan-box"}`}>
                             <Image
                                 className="mb-10"
                                 src={"/assets/images/icon-pro.svg"} alt="Arcade image" height={30} width={30} />

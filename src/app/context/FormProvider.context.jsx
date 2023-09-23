@@ -20,31 +20,13 @@ function FormProvider({ children }) {
     const [toggleState, setToggleState] = useState(false)
     const [subscriptionValue, setSubscriptionValue] = useState("yearly")
 
-    const [arcade, setArcade] = useState(false)
-    const [advanced, setAdvanced] = useState(false)
-    const [pro, setPro] = useState(false)
-    const [plan, setPlan] = useState({})
+    const [planChecked, setPlanChecked] = useState([false, false, false])
 
     const [onlineServices, setOnlineServices] = useState(false)
     const [largerStorage, setLargerStorage] = useState(false)
     const [custProfile, setCustProfile] = useState(false)
 
-    const [cart, setCart] = useState({})
-
-    useEffect(() => {
-        if (arcade) {
-            setCart({ planName: "Arcade", planPrice: "9" })
-        }
-        else if (advanced) {
-            setCart({ planName: "Advanced", planPrice: "12" })
-        }
-        else if (pro) {
-            setCart({ planName: "Pro", planPrice: "9" })
-        }
-        else {
-            setCart({ PlanName: "", planPrice: "0" })
-        }
-    }, [arcade, advanced, pro])
+    const [cart, setCart] = useState({planName: "", planPrice: 0, subscription: "Monthly"})
 
     const handleStep = (path) => {
         router.push(path)
@@ -69,28 +51,17 @@ function FormProvider({ children }) {
     const toggleStateHandler = () => {
         setToggleState(!toggleState)
         if (toggleState) {
-            setSubscriptionValue("yearly")
+            setCart({ ...cart, subscription: "Monthly" })
         }
         else {
-            setSubscriptionValue("monthly")
+            setCart({ ...cart, subscription: "Yearly" })
         }
     }
 
-    const arcadeHandler = () => {
-        setArcade(!arcade)
-        setAdvanced(false)
-        setPro(false)
-    }
-
-    const advancedHandler = () => {
-        setArcade(false)
-        setAdvanced(!advanced)
-        setPro(false)
-    }
-    const proHandler = () => {
-        setArcade(false)
-        setAdvanced(false)
-        setPro(!pro)
+    const planHandler = (planPosition, planName, planPrice) => {
+        setCart({ ...cart, planName: planName, planPrice: planPrice })
+        const newPlan = planChecked.map((value, index) => index === planPosition ? !value : false)
+        setPlanChecked(newPlan)
     }
 
     const handleOnlineServicesCheckbox = () => {
@@ -114,9 +85,7 @@ function FormProvider({ children }) {
             handleInputEmailChange,
             handleInputPhoneNumberChange,
             toggleStateHandler,
-            arcadeHandler,
-            advancedHandler,
-            proHandler,
+            planHandler,
             handleOnlineServicesCheckbox,
             handleLargerStorageCheckbox,
             handleCustProfileCheckbox,
@@ -128,12 +97,11 @@ function FormProvider({ children }) {
             isFieldPhoneNumberValid,
             toggleState,
             subscriptionValue,
-            arcade,
-            advanced,
-            pro,
             onlineServices,
             largerStorage,
             custProfile,
+            planChecked,
+            cart,
         }}>
             {children}
         </FormContext.Provider>

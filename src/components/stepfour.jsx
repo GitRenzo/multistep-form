@@ -2,7 +2,7 @@
 import useFormTool from "@/hooks/useFormTool"
 
 function StepFour() {
-    const { handleStep } = useFormTool()
+    const { handleStep, cart } = useFormTool()
     return (
         <div className="container">
             <div>
@@ -13,10 +13,10 @@ function StepFour() {
                     <div className="flex flex-col justify-center py-5 bg-gray-50 rounded-lg mt-10 px-4">
                         <div className="flex flex-row justify-between">
                             <div className="mb-5">
-                                <p className="text-marine_blue font-medium">Arcade (Monthly)</p>
+                                <p className="text-marine_blue font-medium">{`${cart.planName} (${(cart.subscription)})`}</p>
                                 <button className="text-cool_gray text-sm underline">Change</button>
                             </div>
-                            <p className="text-marine_blue font-medium">$9/mo</p>
+                            <p className="text-marine_blue font-medium">{`$${cart.planPrice}/mo`}</p>
                         </div>
                         <hr className="divide-solid mb-5" />
 
