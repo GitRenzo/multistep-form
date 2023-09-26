@@ -18,9 +18,9 @@ export default function RootLayout({ children }) {
       {/* <body className={`${ubuntu.className} bg-light_gray px-80 pt-10`}> */}
       <body className={`${ubuntu.className} flex justify-center items-center bg-light_gray w-screen h-screen`}>
         <FormProvider>
-          <div className=' flex flex-row  w-3/6 h-5/6 bg-white border-white border-8 rounded-xl overflow-auto'>
-            <Sidebar/>
-            <main className='flex justify-center items-center w-4/6 h-auto'>
+          <div className='flex flex-col md:flex-row md:w-3/6 h-auto md:h-5/6 border-white bg-white border-8 rounded-xl overflow-auto'>
+            <Sidebar />
+            <main className='bg-white absolute top-28 left-3 right-3  rounded-xl md:static flex justify-center items-center w-auto md:w-4/6 '>
               {children}
             </main>
           </div>

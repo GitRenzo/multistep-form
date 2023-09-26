@@ -18,15 +18,51 @@ function FormProvider({ children }) {
     const [isFieldPhoneNumberValid, setIsFieldPhoneNumberValid] = useState(true)
 
     const [toggleState, setToggleState] = useState(false)
-    const [subscriptionValue, setSubscriptionValue] = useState("yearly")
 
-    const [planChecked, setPlanChecked] = useState([false, false, false])
+    const [planChecked, setPlanChecked] = useState([false, true, false])
+    const [addOns, setAddOns] = useState([false, false, false])
 
-    const [onlineServices, setOnlineServices] = useState(false)
-    const [largerStorage, setLargerStorage] = useState(false)
-    const [custProfile, setCustProfile] = useState(false)
+    const [cart, setCart] = useState({ planName: "Advanced", planPrice: { monthly: 12, yearly: 120 }, subscription: "Monthly", addOns: [{ name: "", price: { monthly: 0, yearly: 0 } }, { name: "", price: { monthly: 0, yearly: 0 } }, { name: "", price: { monthly: 0, yearly: 0 } }] })
+    const [totalPrice, setTotalPrice] = useState(0)
 
-    const [cart, setCart] = useState({planName: "", planPrice: 0, subscription: "Monthly"})
+    const resetValues = () => {
+        setName("")
+        setIsFieldNameValid(true)
+        setEmail("")
+        setIsFieldEmailValid(true)
+        setPhoneNumber("")
+        setIsFieldPhoneNumberValid(true)
+
+        setToggleState(false)
+
+        setPlanChecked([false, true, false])
+        setAddOns([false, false, false])
+        setCart({ planName: "Advanced", planPrice: { monthly: 12, yearly: 120 }, subscription: "Monthly", addOns: [{ name: "", price: { monthly: 0, yearly: 0 } }, { name: "", price: { monthly: 0, yearly: 0 } }, { name: "", price: { monthly: 0, yearly: 0 } }] })
+
+        setTotalPrice(0)
+    }
+ 
+    useEffect(() => {
+        let newPlanPrice = 0
+        let newAddOnsPrice = 0
+
+
+        if (toggleState) {
+            newPlanPrice = cart.planPrice.yearly;
+            newAddOnsPrice = cart.addOns.reduce((accumulator, currentAddOn) => {
+                return accumulator + currentAddOn.price.yearly;
+            }, 0);
+        }
+        else {
+            newPlanPrice = cart.planPrice.monthly
+            newAddOnsPrice = cart.addOns.reduce((accumulator, currentAddOn) => {
+                return accumulator + currentAddOn.price.monthly;
+            }, 0);
+        }
+
+        setTotalPrice(newAddOnsPrice + newPlanPrice)
+    }, [cart])
+
 
     const handleStep = (path) => {
         router.push(path)
@@ -48,13 +84,13 @@ function FormProvider({ children }) {
         setIsFieldPhoneNumberValid(ValidatePhoneNumber(inputValue, /^\+?\d+$/))
     }
 
-    const toggleStateHandler = () => {
+    const toggleStateHandler = (checked) => {
         setToggleState(!toggleState)
-        if (toggleState) {
-            setCart({ ...cart, subscription: "Monthly" })
+        if (checked) {
+            setCart({ ...cart, subscription: "Yearly" })
         }
         else {
-            setCart({ ...cart, subscription: "Yearly" })
+            setCart({ ...cart, subscription: "Monthly" })
         }
     }
 
@@ -64,17 +100,21 @@ function FormProvider({ children }) {
         setPlanChecked(newPlan)
     }
 
-    const handleOnlineServicesCheckbox = () => {
-        setOnlineServices(!onlineServices)
+    const handleAddOns = (checkBoxValue, addOnPosition, addOnDetails) => {
 
-    }
+        const addOnsSelected = addOns.map((value, index) => addOnPosition === index ? !value : value)
+        const udpatedAddons = cart.addOns.map((value, index) =>
+            (checkBoxValue && addOnPosition === index) ?
+                addOnDetails
+                :
+                (!checkBoxValue && addOnPosition === index) ?
+                    { name: "", price: { monthly: 0, yearly: 0 } }
+                    :
+                    value
+        )
 
-    const handleLargerStorageCheckbox = () => {
-        setLargerStorage(!largerStorage)
-    }
-
-    const handleCustProfileCheckbox = () => {
-        setCustProfile(!custProfile)
+        setAddOns(addOnsSelected)
+        setCart({ ...cart, addOns: udpatedAddons })
     }
 
 
@@ -86,9 +126,8 @@ function FormProvider({ children }) {
             handleInputPhoneNumberChange,
             toggleStateHandler,
             planHandler,
-            handleOnlineServicesCheckbox,
-            handleLargerStorageCheckbox,
-            handleCustProfileCheckbox,
+            handleAddOns,
+            resetValues,
             name,
             isFieldNameValid,
             email,
@@ -96,12 +135,10 @@ function FormProvider({ children }) {
             phoneNumber,
             isFieldPhoneNumberValid,
             toggleState,
-            subscriptionValue,
-            onlineServices,
-            largerStorage,
-            custProfile,
             planChecked,
+            addOns,
             cart,
+            totalPrice,
         }}>
             {children}
         </FormContext.Provider>

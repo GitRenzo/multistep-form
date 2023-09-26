@@ -52,6 +52,7 @@ function StepOnePage() {
                                     className={`${!isFieldPhoneNumberValid ? "border-2 border-strawberr_red focus:border-strawberr_red focus:outline-none" : ""}`}
                                     type="text" id="phone" placeholder="e.g. +1 234 567 890"
                                     value={phoneNumber} onChange={(e) => handleInputPhoneNumberChange(e.target.value)}
+                                    required={true}
                                 />
                             </li>
                         </ul>
@@ -62,7 +63,7 @@ function StepOnePage() {
 
 
 
-            <div className="flex flex-col items-end">
+            <div className="fixed bottom-0 right-0 left-0 bg-white py-5 z-10 p-5 md:p-0 w-full md:static flex flex-col items-end">
                 <button
                     type="button"
                     disabled={(isFieldEmailValid && isFieldNameValid && isFieldPhoneNumberValid && name.length != 0 && email.length != 0 && phoneNumber != 0) ? false : true}
@@ -70,7 +71,6 @@ function StepOnePage() {
                 >
                     Next Step
                 </button>
-
             </div>
 
 
