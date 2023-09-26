@@ -65,7 +65,7 @@ function FormProvider({ children }) {
 
 
     const handleStep = (path) => {
-        router.replace(path)
+        router.push(path, { shallow: true })
     }
 
     const handleInputChange = (inputValue) => {
