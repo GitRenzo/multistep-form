@@ -64,7 +64,8 @@ function FormProvider({ children }) {
     }, [cart, toggleState])
 
 
-    const handleStep = (path) => {
+    const handleStep = (e, path) => {
+        e.preventDefault()
         router.push(path, { shallow: true })
     }
 

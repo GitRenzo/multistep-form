@@ -11,7 +11,6 @@ function StepOnePage() {
 
     return (
         <div className="container">
-            <Link href="/thanks">thanks</Link>
 
             <div>
                 <h1>Personal info</h1>
