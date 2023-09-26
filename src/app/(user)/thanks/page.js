@@ -2,7 +2,7 @@
 import useFormTool from "@/hooks/useFormTool"
 import Image from "next/image"
 import { useEffect } from "react"
-function page() {
+function Thanks() {
     const {handleStep, resetValues} = useFormTool()
     useEffect(() => {
         setTimeout(() => {
@@ -21,9 +21,9 @@ function page() {
                 free to email us at support@testgaming.com
             </p>
             <div className="custom-loader mt-10 mb-10"/>
-            <p className="text-centner text-cool_gray">You will be redirected to the home page...</p>
+            <p className="text-centner text-cool_gray">You will be redirected to the home Thanks...</p>
         </div>
     )
 }
 
-export default page
+export default Thanks

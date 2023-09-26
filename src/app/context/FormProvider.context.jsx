@@ -61,7 +61,7 @@ function FormProvider({ children }) {
         }
 
         setTotalPrice(newAddOnsPrice + newPlanPrice)
-    }, [cart])
+    }, [cart, toggleState])
 
 
     const handleStep = (path) => {
