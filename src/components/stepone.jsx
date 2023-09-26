@@ -70,7 +70,7 @@ function StepOnePage() {
                 <button
                     type="button"
                     disabled={(isFieldEmailValid && isFieldNameValid && isFieldPhoneNumberValid && name.length != 0 && email.length != 0 && phoneNumber != 0) ? false : true}
-                    onClick={() => handleStep("/select-a-plan")}
+                    onClick={(e) => handleStep(e, "/select-a-plan")}
                 >
                     Next Step
                 </button>
