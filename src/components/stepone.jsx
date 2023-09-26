@@ -1,4 +1,5 @@
 "use client"
+import Link from "next/link"
 import useFormTool from "@/hooks/useFormTool"
 function StepOnePage() {
     const {
@@ -10,6 +11,8 @@ function StepOnePage() {
 
     return (
         <div className="container">
+            <Link href="/thanks">thanks</Link>
+
             <div>
                 <h1>Personal info</h1>
                 <p className="text-cool_gray mt-2">Please provide your name, email address, and phone number.</p>
